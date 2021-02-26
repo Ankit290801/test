@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Hidden from '@material-ui/core/Hidden';
+import { Dialog, Modal } from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -42,7 +43,7 @@ function Landing() {
     const [step, setStep] = useState(1);
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
-
+    const [open, setOpen] = useState(false);
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(name + "is now registered!");
@@ -50,23 +51,27 @@ function Landing() {
     switch(step){
         case 1: 
         return(
-            <div className={classes.root} boxShadow={3}>
-                <Paper className={classes.paper}>
+          <>
+          <Button onClick={() => setOpen(!open)}>Login</Button>
+            {open ? <div className={classes.root} boxShadow={3}>
+                <Paper className={classes.paper} id="login-paper">
                     <Grid container>
-                    <Hidden xsDown>
-                        <Grid item sm={7} style={{backgroundColor: '#E6E6E6'}}>
+                      <Hidden xsDown>
+                        <Grid item sm={7}>
                             <ButtonBase className={classes.image}>
                                 <img className={classes.img} alt="complex" src={car} />
                             </ButtonBase>
                         </Grid>
                       </Hidden>
-                        <Grid item xs={"auto"} sm={5} container>
+                      
+                        <Grid item xs={12} sm={5}  container>
                             <Grid item xs container direction="column" spacing={2}>
                                 <Grid item xs>
                                     <Card style={{ justifyContent: "center", backgroundColor: 'transparent', border: "none", padding: '5px 0', margin: '0'}}>
                                         <Card.Body>
                                             <Form onSubmit={() => handleSubmit} style={{backgroundColor:"white", borderRadius:"50px", width: "350px", height:"450px"}} className="login-form">
                                                 <Form.Text style={{paddingTop: '40px',paddingBottom: '35px',fontSize:"30px", color: "#db0a14", fontFamily: 'Montserrat', fontSize: '20px', fontWeight:'700'}}>Welcome To Mekvahan</Form.Text>
+                          
                                                 <p style={{marginRight: '55%', marginBottom: '3px', fontFamily: 'Montserrat', fontSize: '15px', fontWeight: '500'}}>Name</p>
                                                 <InputGroup className="mb-4" style={{padding: '0 45px'}}>
                                                     <InputGroup.Prepend>
@@ -114,24 +119,27 @@ function Landing() {
                         </Grid>
                     </Grid>
                 </Paper>
-            </div>
+            </div> : null}
+            </>
         )
         case 2:
             return(
                 <div className={classes.root} boxShadow={3}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} id="login-paper">
         <Grid container spacing={2}>
+        <Hidden xsDown>
           <Grid item>
             <ButtonBase className={classes.image}>
               <img className={classes.img} alt="complex" src={car} />
             </ButtonBase>
           </Grid>
+          </Hidden>
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
               <Card style={{ justifyContent: "center", backgroundColor: 'transparent', border: "none", padding: '5px 0', margin: '0'}}>
                     <Card.Body>
-                        <Form style={{backgroundColor:"white", borderRadius:"50px", width: "350px", height:"450px"}} className="login-form">
+                        <Form className="login-form" style={{backgroundColor:"white", borderRadius:"50px", width: "350px", height:"450px"}} className="login-form">
 
                             <Form.Text style={{paddingTop: '40px',paddingBottom: '35px',fontSize:"30px", color: "#db0a14", fontFamily: 'Montserrat', fontSize: '20px', fontWeight:'700'}}>Welcome To Mekvahan</Form.Text>
                             <p style={{marginRight: '55%', marginBottom: '3px', fontFamily: 'Montserrat', fontSize: '15px', fontWeight: '500'}}>OTP</p>
@@ -170,13 +178,15 @@ function Landing() {
         case 3:
             return(
                 <div className={classes.root} boxShadow={3}>
-                <Paper className={classes.paper}>
+                <Paper className={classes.paper} id="login-paper">
                   <Grid container spacing={2}>
+                  <Hidden xsDown>
                     <Grid item>
                       <ButtonBase className={classes.image}>
                         <img className={classes.img} alt="complex" src={car} />
                       </ButtonBase>
                     </Grid>
+                    </Hidden>
                     <Grid item xs={12} sm container>
                       <Grid item xs container direction="column" spacing={2}>
                         <Grid item xs>
@@ -225,6 +235,45 @@ function Landing() {
                 </Paper>
               </div>
             )
+        // case 4:
+        //   return(
+        //     <div>
+        //       <Button onClick={() => setOpen(!open)}>Login</Button>
+            
+        //     <Modal
+        //       open={open}
+        //       style={{width: '1000px', height: '600px', borderRadius: '30px', margin: '0 auto',justifyContent: 'center'}}>
+        //       <Grid container>
+        //         <Hidden xsDown>
+        //         <Grid item sm={7} style={{backgroundColor: '#E6E6E6', borderRadius: '30px 0 0 30px'}}>
+        //         <ButtonBase className={classes.image}>
+        //                 <img className={classes.img} alt="complex" src={car} />
+        //               </ButtonBase>
+        //         </Grid>
+        //         </Hidden>
+
+        //         <Grid item sm={5} style={{backgroundColor: '#E6E6E6', borderRadius: '0 30px 30px 0'}}>
+        //         <Card className="submitCard" style={{fontFamily: 'Montserrat', fontWeight: 'bold', fontSize: '13px' ,position: "absolute", justifyContent: "center", backgroundColor: 'white', border: "none", borderRadius: '50px', width: '350px', height: '450px', padding: '10px 0', margin: '25px 0'}}>
+        //                       <Card.Body>
+        //                           <Card.Text>Dear <bold style={{color: 'red', fontWeight: 'bold'}}>{name}</bold>,<br /> Greetings from Mekvahan!!!</Card.Text>
+        //                           <Card.Text>In the meantime, Mekvahan Mobile App link has been sent on your registered "<bold style={{color: 'red', fontWeight: 'bold'}}>{phone}</bold>" number.</Card.Text>
+        //                           <Card.Text>Book via Mobile App to get 100% cashback on your first booking.</Card.Text>
+        //                           <Card.Text><bold style={{color: 'red', fontWeight: 'bold'}}>Use Code: MVNEW</bold></Card.Text>
+        //                           <Card.Text>"Explore the world of Mekvahan, Just on your fingertips"</Card.Text>
+        //                           <Card.Text>Our service execuitve will connect with you shortly.</Card.Text>
+        //                       </Card.Body>
+        //                       <Card.Footer style={{backgroundColor: 'white', border: 'none', borderRadius: '50px'}}>Follow us on: <br />
+        //                               <img src={fb} style={{padding: "10px"}}></img>
+        //                               <img src={twitter} style={{padding: "10px"}}></img>
+        //                               <img src={linkedIn} style={{padding: "10px"}}></img>
+        //                               <img src={insta} style={{padding: "10px"}}></img>
+        //                               </Card.Footer>
+        //         </Card>
+        //         </Grid>
+        //       </Grid>
+        //     </Modal>
+        //     </div>
+        //   )
     }
     
 }
